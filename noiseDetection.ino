@@ -4,8 +4,8 @@
 const char ssid[] = "sushant";
 const char password[] = "098123098";
 
-#define FIREBASE_HOST "noisedetectionsystem-default-rtdb.asia-southeast1.firebasedatabase.app"
-#define FIREBASE_AUTH "fQPwVQKfZUzG7VSiTTlL0nqIH7hUVhp8216tqOhk"
+#define FIREBASE_HOST "Firebase Host URL"
+#define FIREBASE_AUTH "Firebase Auth Key"
 
 void setup()
 { 
