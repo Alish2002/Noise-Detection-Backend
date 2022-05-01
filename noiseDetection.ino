@@ -1,30 +1,35 @@
-#include <ESP8266WiFi.h>
-#include <FirebaseArduino.h>
+#include <WiFi.h>
+#include <IOXhop_FirebaseESP32.h>
 
-const char ssid[] = "sushant";
-const char password[] = "098123098";
+#define sensorOnePin 13
+#define sensorTwoPin 15
+char ssid[] = "sushant";
+char password[] = "098123098";
+char firebaseHost[] = "https://noisedetectionsystem-default-rtdb.asia-southeast1.firebasedatabase.app/";
+char firebaseKey[] = "fQPwVQKfZUzG7VSiTTlL0nqIH7hUVhp8216tqOhk";
 
-#define FIREBASE_HOST "Firebase Host URL"
-#define FIREBASE_AUTH "Firebase Auth Key"
-
-void setup()
-{ 
-  Serial.begin(115200);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) 
-  {
-     delay(500);
-     Serial.print("*");
-  }
-  
-  Serial.println("");
-  Serial.println("WiFi connection Successful");
-  Serial.print("IP Address: ");
-  Serial.println(WiFi.localIP());
-  
-  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+void setup(){
+    pinMode(sensorOnePin, INPUT);
+    pinMode(sensorTwoPin, INPUT);
+    Serial.begin(9600);
+    WiFi.begin(ssid, password);
+    while(WiFi.status() != WL_CONNECTED){
+        Serial.println("*");
+        delay(500);
+    }
+    Serial.println("WiFi Connected");
+    Firebase.begin(firebaseHost,firebaseKey);
 }
 
 void loop(){
-  
+  int sensorOneValue = digitalRead(sensorOnePin);
+  int sensorTwoValue = digitalRead(sensorTwoPin);
+  if(sensorOneValue == 1){
+    Serial.println("Noise Detected - Sensor One");
+      Firebase.setInt("sensorOne", 1);
+    }
+   if(sensorTwoValue == 1){
+    Serial.println("Noise Detected - Sensor Two");
+    Firebase.setInt("sensorTwo", 1);
+   }
 }
