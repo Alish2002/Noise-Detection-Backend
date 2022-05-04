@@ -2,11 +2,11 @@
 #include <IOXhop_FirebaseESP32.h>
 
 #define sensorOnePin 13
-#define sensorTwoPin 15
+#define sensorTwoPin 12
 char ssid[] = "sushant";
 char password[] = "098123098";
-char firebaseHost[] = "https://noisedetectionsystem-default-rtdb.asia-southeast1.firebasedatabase.app/";
-char firebaseKey[] = "fQPwVQKfZUzG7VSiTTlL0nqIH7hUVhp8216tqOhk";
+char firebaseHost[] = "firebase_host";
+char firebaseKey[] = "firebase_key";
 
 void setup(){
     pinMode(sensorOnePin, INPUT);
@@ -25,11 +25,9 @@ void loop(){
   int sensorOneValue = digitalRead(sensorOnePin);
   int sensorTwoValue = digitalRead(sensorTwoPin);
   if(sensorOneValue == 1){
-    Serial.println("Noise Detected - Sensor One");
       Firebase.setInt("sensorOne", 1);
     }
    if(sensorTwoValue == 1){
-    Serial.println("Noise Detected - Sensor Two");
     Firebase.setInt("sensorTwo", 1);
    }
 }
